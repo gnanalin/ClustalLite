@@ -110,7 +110,7 @@ def upgma(order_alignment_dico, labels, clusters, distance_matrix):
         distance_matrix = np.hstack((new_distance_line_c, distance_matrix))
         
         # in the labels, we don't keep our used sequences (seq1, seq2)
-        # and then we add our new label
+        # and then we add our new label. The same for the clusters.
         labels.insert(0,str(new_label))
         labels.remove(seq1)
         labels.remove(seq2)

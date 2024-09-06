@@ -1,4 +1,4 @@
-"""Programm which aims at reproducing the algorithm of Clustal
+"""Program which aims at reproducing the algorithm of Clustal
 
 Usage:
 ------

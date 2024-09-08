@@ -1,6 +1,6 @@
 # PROJECT CLUSTAL
 
-This programm aims at reproducing the algorithm of Clustal. Clustal is a multiple alignment algorithm. In this project, we are simplifiying the algorithm.
+This programm aims at reproducing the algorithm of Clustal. Clustal is a progressive multiple alignment algorithm. In this project, we are simplifiying the algorithm.
 
 The  three major steps are :
 
@@ -8,7 +8,7 @@ The  three major steps are :
 
 2. Hierarchial clustering with UPGMA algorithm of the scores generated from step 1.
 
-3. Multiple sequence alignement
+3. Multiple sequence alignement from step 2 order.
 
 ## INSTALLATION
 
@@ -22,7 +22,7 @@ In order to have reproducible results, I used CONDA. In order to run the code, y
 
 To setup and use the environnement, you can do :
 
-        conda env create -n project_clustallite -f environement.yml
-        conda activate project_mc
+        conda env create -f environement.yml
+        conda activate env_clustallite
 
 You can now start the programm.

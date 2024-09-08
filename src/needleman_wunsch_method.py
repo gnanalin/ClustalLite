@@ -5,7 +5,10 @@ Usage:
 ------
 """
 
-import sys
+__authors__ = ("Stéphanie Gnanalingam")
+__contact__ = ("stephanie.gnanalingam@etu.u-paris.fr")
+__date__ = "2024-09-06"
+
 import pandas as pd
 import numpy as np
 
@@ -25,11 +28,11 @@ def init_matrix(seq1, seq2):
     matrix : the np.array 
     """
     seq1_len, seq2_len = len(seq1), len(seq2)
-    matrix = np.full(shape=(seq1_len+1, seq2_len+1), fill_value=0, dtype=int)
-    for i in range(1,seq2_len+1):
-        matrix[0][i] = GAP*(-i)
-    for i in range(1,seq1_len+1):
-        matrix[i][0] = GAP*(-i)
+    matrix = np.full(shape=(seq1_len + 1, seq2_len + 1), fill_value=0, dtype=int)
+    for i in range(1,seq2_len + 1):
+        matrix[0][i] = GAP * (-i)
+    for i in range(1,seq1_len + 1):
+        matrix[i][0] = GAP * (-i)
     return matrix
 
 def calculate_score(matrix, current_line, current_col, current_line_AA, current_col_AA):
@@ -45,16 +48,14 @@ def calculate_score(matrix, current_line, current_col, current_line_AA, current_
     -------
     tuple : (score, index) where index will be the box which gave 
     the maximal score (0: diagonal, 1: left, 2: up). If there are equals with
-    the diagonal, the diagonal box will be selected and otherwise, it doesnt' matter
+    the diagonal, the diagonal box will be selected and otherwise, it left box is selected
     """
-    #print("lin",current_line, "col",current_col, "aa1", current_line_AA, "aa2", current_col_AA, "blosum", BLOSUM_MATRIX.loc[current_line_AA, current_col_AA])
     score_diag = matrix[current_line-1, current_col-1]+BLOSUM_MATRIX.loc[current_line_AA, current_col_AA]
     score_up = matrix[current_line-1, current_col]-GAP
     score_left = matrix[current_line, current_col-1]-GAP
     scores_array = np.array([score_diag, score_left, score_up])
     score_max = np.max(scores_array)
     index_max = np.argmax(scores_array)
-    #print(score_diag, score_left, score_up, score_max, index_max)
     return (score_max, index_max)
 
 
@@ -85,7 +86,6 @@ def complete_matrice(matrix, seq1, seq2):
 def compute_alignement(matrix_align, seq1, seq2):
     matrix_shape = matrix_align.shape
     current_box_i, current_box_j = matrix_shape[0]-1, matrix_shape[1]-1
-    print(current_box_i, current_box_j)
     alignement_seq1, alignement_seq2 = "", ""
     while (current_box_i >= 1) or (current_box_j >= 1) :
         match matrix_align[current_box_i, current_box_j]:
@@ -105,6 +105,7 @@ def compute_alignement(matrix_align, seq1, seq2):
                 alignement_seq2 = "-"+alignement_seq2
                 alignement_seq1 = seq1[current_box_i-1]+alignement_seq1
                 current_box_i -= 1
+            #if we are in gap boxes
             case _:
                 if current_box_i == 0:
                     alignement_seq1 = "-"+alignement_seq1

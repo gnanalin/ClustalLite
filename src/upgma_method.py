@@ -6,6 +6,13 @@ Usage:
 python UPGMA.py
 """
 
+
+__authors__ = ("Stéphanie Gnanalingam")
+__contact__ = ("stephanie.gnanalingam@etu.u-paris.fr")
+__date__ = "2024-09-07"
+
+from Bio import Phylo
+from io import StringIO  
 import numpy as np
 
 def find_lowest_coordinates(distance_matrix):
@@ -72,6 +79,7 @@ def upgma(order_alignment_dico, labels, clusters, distance_matrix):
         # we get the sequences which have the lowest distance
         seq1, seq2 = labels[lowest_coord_lin], labels[lowest_coord_col]
         new_label = (seq1,seq2)
+        
         # the dictionnary will store the distance between seq1 and seq2
         order_alignment_dico[new_label] = distance_matrix[lowest_coord_lin, lowest_coord_col]
         # we have to add the number of sequences of both sequences for the new sequence name
@@ -120,9 +128,16 @@ def upgma(order_alignment_dico, labels, clusters, distance_matrix):
         # here is the recursion part
         return upgma(order_alignment_dico, labels, clusters, distance_matrix)
     else:
+        final_group_format = ""
+        for element in str(labels[0]):
+            if element not in ["'", '"', "\\"]:
+                    final_group_format += element
+        tree = Phylo.read(StringIO(final_group_format), "newick")
+        Phylo.draw_ascii(tree)
         return order_alignment_dico
 
 if __name__ == "__main__":
+    """
     labels = ["Hu", "Ch", "Go", "Or", "Gi"]
     clusters = {label:1 for label in labels}
     distances = np.array([[-1, 15, 45, 143, 198], 
@@ -131,6 +146,7 @@ if __name__ == "__main__":
             [-10, -10, -10, -10, 179],
             [-10, -10, -10, -10, -10]])
     print(upgma({}, labels, clusters, distances))
+    """
     
     labels = ["Bsu", "Bst", "Lvi", "Amo", "Mlu"]
     clusters = {label:1 for label in labels}

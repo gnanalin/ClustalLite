@@ -24,7 +24,7 @@ def find_lowest_coordinates(distance_matrix):
     
     Returns
     -------
-    tuple : (vertical coordinate, horizontal coordinate)
+    minimum_coord : tuple, (vertical coordinate, horizontal coordinate)
     """
     nlin = distance_matrix.shape[0]
     minimum = float('inf')
@@ -69,7 +69,7 @@ def upgma(order_alignment_dico, labels, clusters, distance_matrix):
 
     Returns
     ------
-    list : return the order in which to align the sequences
+    dict
     """
     # labels first contains the names of the sequences
     # in each recursion, it will assemble two sequences (seq1, seq2) in a str 
@@ -135,6 +135,38 @@ def upgma(order_alignment_dico, labels, clusters, distance_matrix):
         tree = Phylo.read(StringIO(final_group_format), "newick")
         Phylo.draw_ascii(tree)
         return order_alignment_dico
+
+def upgma_ordered_seq_name_list(nb_seq, ordered_list, key):
+    """Get the ordered sequences names from upgma algorithm
+
+    Parameters
+    ----------
+    nb_seq : the total number of sequences to align
+    ordered_list : the list which will contain the sequences names
+    key : the current group from upgma algorithm we are looking at
+
+    Returns
+    ------
+    ordered_list : list, ordered sequences names to make the 
+    multiple alignments
+    """
+    if len(ordered_list) == nb_seq:
+        return ordered_list
+    else:
+        cluster1 = key[0]
+        cluster2 = key[1]
+        if "(" in cluster1:
+            # if it's a cluster, we need to call the function again
+            group_0 = eval(cluster1)
+            upgma_ordered_seq_name_list(nb_seq, ordered_list, group_0)
+        else:
+            ordered_list.append(cluster1)
+        if "(" in cluster2:
+            group_1 = eval(cluster2)
+            upgma_ordered_seq_name_list(nb_seq, ordered_list, group_1)
+        else:
+            ordered_list.append(cluster2)
+    return ordered_list
 
 if __name__ == "__main__":
     """

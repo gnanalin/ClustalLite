@@ -25,7 +25,7 @@ def init_matrix(seq1, seq2):
     
     Returns
     -------
-    matrix : the np.array 
+    matrix : np.array 
     """
     seq1_len, seq2_len = len(seq1), len(seq2)
     matrix = np.full(shape=(seq1_len + 1, seq2_len + 1), fill_value=0, dtype=int)
@@ -124,6 +124,5 @@ if __name__ == "__main__":
     print(matrix)
     score_max_align, matrix_align = complete_matrice(matrix, seq1, seq2)
     print(score_max_align)
-    #print(matrix_align)
     print(compute_alignement(matrix_align, seq1, seq2))
-    #print(matrix_align)
+    print(matrix_align)

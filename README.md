@@ -24,7 +24,7 @@ In order to run the code, you have to create an environnement thanks to the YAML
 
 To setup and use the environnement, you can do :
 
-        conda env create -f environement.yml
+        conda env create -f environment.yml
         conda activate env_clustallite
 
 You are now ready to start the programm.

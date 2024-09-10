@@ -48,8 +48,8 @@ In order to run the multiple alignment, you can do :
 
         python src/main.py --fasta data/fasta_file
 
-where `fasta_file` contains the sequences you wish to align. Make sure to have sequences names with no spaces and sequences length <= 200-300 amino acids to have 
-fast (approximately 2 minutes) results.
+where `fasta_file` contains the sequences you wish to align. Make sure to have sequences names with no spaces and sequences length <= 1000 amino acids to have 
+fast (<=2 minutes approximately) results.
 
 If you just want to try my programm, you can use the `example.fasta` file you have in the `data` folder.
 

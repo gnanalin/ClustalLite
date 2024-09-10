@@ -15,7 +15,7 @@ import numpy as np
 import copy
 import needleman_wunsch_method
 
-BLOSUM_MATRIX = pd.read_csv("../data/BLOSUM_MATRIX.csv", index_col=[0])
+BLOSUM_MATRIX = pd.read_csv("data/BLOSUM_MATRIX.csv", index_col=[0])
 GAP = 8
 
 

@@ -13,7 +13,7 @@ __date__ = "2024-09-06"
 import pandas as pd
 import numpy as np
 
-BLOSUM_MATRIX = pd.read_csv("../data/BLOSUM_MATRIX.csv", index_col=[0])
+BLOSUM_MATRIX = pd.read_csv("data/BLOSUM_MATRIX.csv", index_col=[0])
 GAP = 8
 
 

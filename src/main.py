@@ -21,7 +21,7 @@ import upgma_method
 import multiple_alignment
 
 
-def check_file(fastq_file):
+def check_file(fasta_file):
     """Check whether the path exists.
 
     Parameters
@@ -32,7 +32,7 @@ def check_file(fastq_file):
     ------
     bool : True if the path exists
     """
-    return os.path.exists(fastq_file)
+    return os.path.exists(fasta_file)
 
 
 def parse_argument():
@@ -48,12 +48,12 @@ def parse_argument():
     arg.fastq : str, the path of the fastq file
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument("--fastq", type=str, help="pass your fastq file")
+    parser.add_argument("--fasta", type=str, help="pass your fasta file")
     arg = parser.parse_args()
-    return arg.fastq
+    return arg.fasta
 
 
-def get_fastq_info(fastq_file):
+def get_fastq_info(fasta_file):
     """Extract the names sequences from a fastq file.
 
     Parameters
@@ -68,7 +68,7 @@ def get_fastq_info(fastq_file):
     step, in which we suppose to have clusters
     """
     return {record.id: [str(record.seq)]
-            for record in SeqIO.parse(fastq_file, "fasta")}
+            for record in SeqIO.parse(fasta_file, "fasta")}
 
 
 def compute_all_needleman_wunch(dict_sequences):
@@ -172,9 +172,9 @@ def multiple_alignment_process(dict_upgma, dict_two_align, nb_seq):
 
 if __name__ == "__main__":
     # parsing the argument
-    fastq_file = parse_argument()
+    fasta_file = parse_argument()
     # checking the existance of the file
-    if check_file(fastq_file):
+    if check_file(fasta_file):
         print(
             Fore.BLUE
             + Style.BRIGHT
@@ -189,8 +189,8 @@ if __name__ == "__main__":
         + "Here is the file's content :\n"
         + Style.RESET_ALL)
     # getting all the sequences
-    all_fastq = get_fastq_info(fastq_file)
-    for k, v in all_fastq.items():
+    all_fasta = get_fastq_info(fasta_file)
+    for k, v in all_fasta.items():
         print(
             f"{Fore.MAGENTA + Style.BRIGHT + k + Style.RESET_ALL}"
             + f": {v[0]}\n"
@@ -202,11 +202,11 @@ if __name__ == "__main__":
         + "Here are the Needleman-Wunsch alignements :\n"
         + Style.RESET_ALL
     )
-    scores_matrix, dict_two_align = compute_all_needleman_wunch(all_fastq)
+    scores_matrix, dict_two_align = compute_all_needleman_wunch(all_fasta)
     # normalize the array to get distances instead of scores
     distance_matrix = normalize_array(scores_matrix)
     # computing UPGMA
-    labels = list(all_fastq.keys())
+    labels = list(all_fasta.keys())
     clusters = {label: 1 for label in labels}
     print(
         Fore.BLUE
@@ -215,7 +215,7 @@ if __name__ == "__main__":
         + Style.RESET_ALL
     )
     dict_upgma = upgma_method.upgma({}, labels, clusters, distance_matrix)
-    dict_two_align.update(all_fastq)
+    dict_two_align.update(all_fasta)
     # computing multiple alignement process
     print(
         Fore.BLUE

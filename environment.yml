@@ -5,12 +5,14 @@ channels:
     - nodefaults
 dependencies:
     - python=3.11.5
+    - pip
     - biopython
     - numpy
     - pandas
-    - argparse
     - joblib
     - pycodestyle
     - pydocstyle
     - black
     - pylint
+    - pip:
+        - argparse

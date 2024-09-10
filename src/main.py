@@ -108,10 +108,13 @@ def compute_all_needleman_wunch(dict_sequences):
             )
             scores_matrix[seq1_i, seq2_i] = score_align
             dict_two_align[(seq1_name, seq2_name)] = [seq1_align, seq2_align]
-            print(
-                f"{Fore.MAGENTA+Style.BRIGHT+str((seq1_name, seq2_name))}"
-                + f"{Style.RESET_ALL}:\n{seq1_align}\n{seq2_align}\n"
-            )
+            for i in range(0, len(seq1_align), 60):
+                print(
+                    f"{Fore.MAGENTA+Style.BRIGHT+seq1_name}: "
+                    + f"{Style.RESET_ALL}{seq1_align[i:i+60]}\n"
+                    + f"{Fore.MAGENTA+Style.BRIGHT+seq2_name}: "
+                    + f"{Style.RESET_ALL}{seq2_align[i:i+60]}\n"
+                )
             print(
                 f"{Fore.RED+Style.BRIGHT} Alignement score : " +
                 f"{str(score_align)}{Style.RESET_ALL}\n"
@@ -227,10 +230,10 @@ if __name__ == "__main__":
         dict_upgma, dict_two_align, len(labels)
     )
     final_alignments = dict_multiple_alignment[list(dict_multiple_alignment.keys())[-1]]
-    for index_seq in range(0, len(final_alignments[0]), 30):
+    for index_seq in range(0, len(final_alignments[0]), 40):
         for seq_name, alignement in zip(ordered_seq_names, final_alignments):
             print(
                 f"{Fore.GREEN+Style.BRIGHT+seq_name+Style.RESET_ALL}"
-                + f": {Style.BRIGHT+alignement[index_seq:index_seq+30]}"
+                + f": {Style.BRIGHT+alignement[index_seq:index_seq+40]}"
             )
         print("\n\n")

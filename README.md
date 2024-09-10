@@ -52,3 +52,23 @@ where `fasta_file` contains the sequences you wish to align. Make sure to have s
 fast (approximately 2 minutes) results.
 
 If you just want to try my programm, you can use the `example.fasta` file you have in the `data` folder.
+
+## RESULTS 
+
+For each of our three steps, you will get a result in the terminal :
+
+**step0 :**
+
+![fasta](results/fasta_content.png "Fasta sequences file's content")
+
+**step1 :**
+
+![nw align](results/pairwise_align.png "A part of the pairwise alignment result")
+
+**step2 :**
+
+![upgma](results/upgma_result.png "UPGMA order tree")
+
+**step3 :**
+
+![clustal](results/clustal.png "A part of the clustal alignment result")

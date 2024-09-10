@@ -12,7 +12,6 @@ __date__ = "2024-09-09"
 
 import pandas as pd
 import numpy as np
-import copy
 import needleman_wunsch_method
 
 BLOSUM_MATRIX = pd.read_csv("data/BLOSUM_MATRIX.csv", index_col=[0])

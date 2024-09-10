@@ -1,4 +1,4 @@
-# PROJECT CLUSTAL
+# PROJECT ClustalLite
 
 This program aims at reproducing the algorithm of Clustal. Clustal is a progressive multiple alignment algorithm. In this project, we are simplifiying the algorithm.
 
@@ -31,7 +31,7 @@ You are now ready to start the programm.
 
 ## THE FOLDERS AND FILES
 
-In your `ClustalLite` folder, you can find a folder named `data` which contains the fasta file and the blosum matrix [link_matrix](https://github.com/dmnfarrell/epitopepredict/blob/master/epitopepredict/mhcdata/blosum62.csv) and another folder
+In your `ClustalLite` folder, you can find a folder named `data` which contains the fasta file and the blosum matrix ([link_matrix](https://github.com/dmnfarrell/epitopepredict/blob/master/epitopepredict/mhcdata/blosum62.csv)) and another folder
 named `src` which contains several scripts :
 
 - `needleman_wunsch_method.py` : contains the functions to implement needleman_wunsch algorithm (step 1).

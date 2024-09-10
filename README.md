@@ -1,6 +1,6 @@
 # PROJECT CLUSTAL
 
-This programm aims at reproducing the algorithm of Clustal. Clustal is a progressive multiple alignment algorithm. In this project, we are simplifiying the algorithm.
+This program aims at reproducing the algorithm of Clustal. Clustal is a progressive multiple alignment algorithm. In this project, we are simplifiying the algorithm.
 
 The three major steps are :
 
@@ -42,7 +42,7 @@ named `src` which contains several scripts :
 
 - `main.py` : regroups the three previous steps.
 
-## THE PROGRAMM
+## THE PROGRAM
 
 In order to run the multiple alignment, you can do :
 

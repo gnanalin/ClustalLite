@@ -131,12 +131,22 @@ def normalize_array(scores_matrix):
 
     Returns
     -------
-    distance_matrix : np.array, the normalized matrix of scores
+    scores_matrix : np.array, the normalized matrix of scores
     """
-    distance_matrix = (scores_matrix - np.min(scores_matrix)) / (
-        np.max(scores_matrix) - np.min(scores_matrix)
+    nlin = scores_matrix.shape[0]
+    minimum = float("inf")
+    maximum = -float("inf")
+    for i in range(nlin):
+        for j in range(i + 1, nlin):
+            eij = scores_matrix[i, j]
+            if eij < minimum:
+                minimum = eij
+            if eij > maximum:
+                maximum = eij
+    scores_matrix = (scores_matrix - minimum) / (
+        maximum - minimum
     )
-    return distance_matrix
+    return scores_matrix
 
 
 def multiple_alignment_process(dict_upgma, dict_two_align, nb_seq):
@@ -236,4 +246,4 @@ if __name__ == "__main__":
                 f"{Fore.GREEN+Style.BRIGHT+seq_name+Style.RESET_ALL}"
                 + f": {Style.BRIGHT+alignement[index_seq:index_seq+40]}"
             )
-        print("\n\n")
+        print("\n")

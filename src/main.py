@@ -13,9 +13,11 @@ __date__ = "2024-09-04"
 import argparse
 import os
 import copy
+import multiprocessing
 import numpy as np
 from Bio import SeqIO
 from colorama import Fore, Style
+from joblib import Parallel, delayed
 import needleman_wunsch_method
 import upgma_method
 import multiple_alignment
@@ -71,6 +73,46 @@ def get_fastq_info(fasta_file):
             for record in SeqIO.parse(fasta_file, "fasta")}
 
 
+def compute_one_needleman_wunsch_align(dict_sequences, seq1_i, seq2_i, labels):
+    """Compute one needleman wunsch alignement.
+
+    Parameters
+    ----------
+    dict_sequences : a dictionnary result of get_fastq_info()
+    seq1_i : the current seq1 position in the list
+    seq2_i : the current seq2 position in the list
+    labels : the id of the sequences
+
+    Returns
+    -------
+    seq1_i, seq2_i : identifiers of the current alignments
+    score_align : the alignment score
+    seq1_align, seq2_align : the alignment sequences
+    """
+    seq1_name, seq2_name = labels[seq1_i], labels[seq2_i]
+    seq1, seq2 = (
+        dict_sequences[seq1_name][0],
+        dict_sequences[seq2_name][0],
+    )
+    matrix_nw = needleman_wunsch_method.init_matrix(seq1, seq2)
+    score_align, matrix_align = needleman_wunsch_method.complete_matrice(matrix_nw, seq1, seq2)
+    seq1_align, seq2_align = needleman_wunsch_method.compute_alignement(matrix_align, seq1, seq2)
+    
+    for i in range(0, len(seq1_align), 60):
+        print(
+            f"{Fore.MAGENTA+Style.BRIGHT+seq1_name}: "
+            + f"{Style.RESET_ALL}{seq1_align[i:i+60]}\n"
+            + f"{Fore.MAGENTA+Style.BRIGHT+seq2_name}: "
+            + f"{Style.RESET_ALL}{seq2_align[i:i+60]}\n"
+        )
+    print(
+        f"{Fore.RED+Style.BRIGHT} Alignement score : " +
+        f"{str(score_align)}{Style.RESET_ALL}\n"
+    )
+    
+    return (seq1_i, seq2_i, score_align, seq1_align, seq2_align)
+
+
 def compute_all_needleman_wunch(dict_sequences):
     """Compute needleman wunsch alignement for all the sequences.
 
@@ -90,35 +132,19 @@ def compute_all_needleman_wunch(dict_sequences):
     scores_matrix = np.full(
         shape=(number_of_sequences, number_of_sequences), fill_value=-10, dtype=int
     )
-    for seq1_i in range(len(labels)):
-        for seq2_i in range(seq1_i + 1, len(labels)):
-            seq1_name, seq2_name = labels[seq1_i], labels[seq2_i]
-            seq1, seq2 = (
-                dict_sequences[labels[seq1_i]][0],
-                dict_sequences[labels[seq2_i]][0],
-            )
-            matrix_nw = needleman_wunsch_method.init_matrix(
-                seq1, seq2
-            )
-            score_align, matrix_align = needleman_wunsch_method.complete_matrice(
-                matrix_nw, seq1, seq2
-            )
-            seq1_align, seq2_align = needleman_wunsch_method.compute_alignement(
-                matrix_align, seq1, seq2
-            )
-            scores_matrix[seq1_i, seq2_i] = score_align
-            dict_two_align[(seq1_name, seq2_name)] = [seq1_align, seq2_align]
-            for i in range(0, len(seq1_align), 60):
-                print(
-                    f"{Fore.MAGENTA+Style.BRIGHT+seq1_name}: "
-                    + f"{Style.RESET_ALL}{seq1_align[i:i+60]}\n"
-                    + f"{Fore.MAGENTA+Style.BRIGHT+seq2_name}: "
-                    + f"{Style.RESET_ALL}{seq2_align[i:i+60]}\n"
-                )
-            print(
-                f"{Fore.RED+Style.BRIGHT} Alignement score : " +
-                f"{str(score_align)}{Style.RESET_ALL}\n"
-            )
+    num_cores = multiprocessing.cpu_count()
+
+    results = Parallel(n_jobs=num_cores)(
+        delayed(compute_one_needleman_wunsch_align)(dict_sequences, seq1_i, seq2_i, labels)
+        for seq1_i in range(len(labels))
+        for seq2_i in range(seq1_i + 1, len(labels))
+    )
+
+    for seq1_i, seq2_i, score_align, seq1_align, seq2_align in results:
+        scores_matrix[seq1_i, seq2_i] = score_align
+        seq1_name, seq2_name = labels[seq1_i], labels[seq2_i]
+        dict_two_align[(seq1_name, seq2_name)] = [seq1_align, seq2_align]
+
     return scores_matrix, dict_two_align
 
 

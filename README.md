@@ -65,6 +65,8 @@ For each of our three steps, you will get a result in the terminal :
 
 ![nw align](results/pairwise_align.png "A part of the pairwise alignment result")
 
+This step was parallelized. 
+
 **step2 :**
 
 ![upgma](results/upgma_result.png "UPGMA order tree")

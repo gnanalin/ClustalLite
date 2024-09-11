@@ -133,7 +133,6 @@ def compute_all_needleman_wunch(dict_sequences):
         shape=(number_of_sequences, number_of_sequences), fill_value=-10, dtype=int
     )
     num_cores = multiprocessing.cpu_count()
-
     results = Parallel(n_jobs=num_cores)(
         delayed(compute_one_needleman_wunsch_align)(dict_sequences, seq1_i, seq2_i, labels)
         for seq1_i in range(len(labels))

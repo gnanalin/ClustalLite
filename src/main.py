@@ -143,11 +143,10 @@ def normalize_array(scores_matrix):
                 minimum = eij
             if eij > maximum:
                 maximum = eij
-    scores_matrix = scores_matrix - minimum
-    scores_matrix = maximum - scores_matrix
     scores_matrix = (scores_matrix - minimum) / (
         maximum - minimum
     )
+    scores_matrix = 1 - scores_matrix
     return scores_matrix
 
 

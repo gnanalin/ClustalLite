@@ -241,10 +241,10 @@ if __name__ == "__main__":
         dict_upgma, dict_two_align, len(labels)
     )
     final_alignments = dict_multiple_alignment[list(dict_multiple_alignment.keys())[-1]]
-    for index_seq in range(0, len(final_alignments[0]), 40):
+    for index_seq in range(0, len(final_alignments[0]), 70):
         for seq_name, alignement in zip(ordered_seq_names, final_alignments):
             print(
                 f"{Fore.GREEN+Style.BRIGHT+seq_name+Style.RESET_ALL}"
-                + f": {Style.BRIGHT+alignement[index_seq:index_seq+40]}"
+                + f": {Style.BRIGHT+alignement[index_seq:index_seq+70]}"
             )
         print("\n")

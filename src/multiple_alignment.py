@@ -1,10 +1,4 @@
-"""Program which aims at computing the multiple alignments.
-
-Usage:
-------
-------
-
-"""
+"""Program which aims at computing the multiple alignments."""
 
 __authors__ = "Stéphanie Gnanalingam"
 __contact__ = "stephanie.gnanalingam@etu.u-paris.fr"

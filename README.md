@@ -20,7 +20,7 @@ By cloning this projet :
 
 In order to have reproducible results, I used CONDA. If you don't have CONDA and want to install it, please refer to this page : [link_miniconda_installation](https://docs.anaconda.com/miniconda/)
 
-In order to run the code, you have to create an environnement thanks to the YAML file (`environement.yml`) in the directory `ClustalLite`. 
+In order to run the code, you have to create an environment thanks to the YAML file (`environement.yml`) in the directory `ClustalLite`. 
 
 To setup and use the environnement, you can do :
 
@@ -31,8 +31,7 @@ You are now ready to start the programm.
 
 ## THE FOLDERS AND FILES
 
-In your `ClustalLite` folder, you can find a folder named `data` which contains the fasta file and the blosum matrix ([link_matrix](https://github.com/dmnfarrell/epitopepredict/blob/master/epitopepredict/mhcdata/blosum62.csv)) and another folder
-named `src` which contains several scripts :
+In your `ClustalLite` folder, you can find a folder named `data` which contains the fasta file and the blosum matrix ([link_matrix](https://github.com/dmnfarrell/epitopepredict/blob/master/epitopepredict/mhcdata/blosum62.csv)), a `docs` folder which contains the french report and presentation. Finally, you'll find a folder named `src` which contains several scripts :
 
 - `needleman_wunsch_method.py` : contains the functions to implement needleman_wunsch algorithm (step 1).
 
@@ -49,7 +48,7 @@ In order to run the multiple alignment, you can do :
         python src/main.py --fasta data/fasta_file
 
 where `fasta_file` contains the sequences you wish to align. Make sure to have sequences names with no spaces and sequences length <= 1000 amino acids to have 
-fast (<=2 minutes approximately) results.
+fast (<3 minutes) results.
 
 If you just want to try my programm, you can use the `example.fasta` file you have in the `data` folder.
 

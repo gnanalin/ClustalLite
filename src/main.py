@@ -229,6 +229,8 @@ if __name__ == "__main__":
         + Style.RESET_ALL)
     # getting all the sequences
     all_fasta = get_fastq_info(fasta_file)
+    if len(all_fasta) == 2:
+        raise TypeError("There must be at least 3 sequences in the fasta file")
     for k, v in all_fasta.items():
         print(
             f"{Fore.MAGENTA + Style.BRIGHT + k + Style.RESET_ALL}"

@@ -31,7 +31,7 @@ You are now ready to start the programm.
 
 ## THE FOLDERS AND FILES
 
-In your `ClustalLite` folder, you can find a folder named `data` which contains the fasta file and the blosum matrix ([link_matrix](https://github.com/dmnfarrell/epitopepredict/blob/master/epitopepredict/mhcdata/blosum62.csv)), a `docs` folder which contains the french report and presentation. Finally, you'll find a folder named `src` which contains several scripts :
+In your `ClustalLite` folder, you can find a folder named `data` which contains the fasta file and the blosum matrix ([link_matrix](https://github.com/dmnfarrell/epitopepredict/blob/master/epitopepredict/mhcdata/blosum62.csv)), a `results` folder with the screenshots of the terminal, a `docs` folder which contains the french report and presentation. Finally, you'll find a folder named `src` which contains several scripts :
 
 - `needleman_wunsch_method.py` : contains the functions to implement needleman_wunsch algorithm (step 1).
 
@@ -69,6 +69,8 @@ This step was parallelized.
 **step2 :**
 
 ![upgma](results/upgma_result.png "UPGMA order tree")
+
+This step was done with recursion.
 
 **step3 :**
 
